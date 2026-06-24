@@ -593,11 +593,11 @@ const projects = [
     },
     {
         title: 'FileWatch',
-        desc: 'File integrity monitor inspired by Tripwire. Hashes a directory tree on baseline, then detects additions, deletions, and modifications on subsequent scans.',
+        desc: 'Dependency-free file integrity monitor inspired by Tripwire. SHA-256 baselines a directory tree, then detects added, modified, and deleted files plus risky permission changes (world-writable, setuid/setgid). Severity-ranked reports, JSON export, and a tripwire exit code for cron/CI. Unit tested.',
         tags: ['Python', 'SHA-256', 'DFIR'],
         category: 'automation',
-        status: 'planned',
-        github: 'https://github.com/RocmDaGr8'
+        status: 'done',
+        github: 'https://github.com/RocmDaGr8/filewatch'
     },
     {
         title: 'SOC Triage Bot',
