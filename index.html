@@ -134,6 +134,30 @@
         /* Mobile menu */
         #mobile-menu { display:none; }
         #mobile-menu.open { display:block; }
+
+        /* ── Mobile friendliness ─────────────────────────────────────── */
+        html, body { max-width: 100%; overflow-x: hidden; }
+        /* keep long mono/terminal lines from stretching the page — scroll inside the card */
+        .terminal .mono { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .terminal .mono > div { white-space: nowrap; }
+
+        @media (max-width: 640px) {
+            /* tighter vertical rhythm on phones */
+            section { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+            #home { padding-top: 5rem !important; min-height: auto; }
+            /* scale the big hero type down so it never overflows */
+            #home h1 { font-size: 3rem !important; line-height: 1.08; }
+            .hero-cmd { font-size: 1rem !important; }
+            .hero-cmd #typed { word-break: break-all; }
+            /* section headings */
+            #about h2, #projects h2, #skills h2, #certs h2, #contact h2 { font-size: 1.6rem; }
+            /* terminal text a touch smaller so more fits */
+            .terminal .mono { font-size: 0.72rem; }
+            /* stat row: allow wrapping instead of squishing */
+            .hero-stats { flex-wrap: wrap; gap: 1.25rem 1.5rem; }
+            /* comfortable tap targets in the nav */
+            .mobile-nav { padding: 0.35rem 0; }
+        }
     </style>
 </head>
 <body>
@@ -176,7 +200,7 @@
             <h1 class="text-5xl sm:text-7xl font-bold text-white leading-tight fade-in" style="transition-delay:.05s">
                 Roshim<br><span class="glow">Bhatta</span>
             </h1>
-            <div class="mt-4 text-xl sm:text-2xl mono text-gray-400 fade-in" style="transition-delay:.1s">
+            <div class="hero-cmd mt-4 text-xl sm:text-2xl mono text-gray-400 fade-in" style="transition-delay:.1s">
                 <span class="text-gray-500">$ ./</span><span id="typed" class="text-green-400"></span><span class="cursor"></span>
             </div>
             <p class="mt-6 text-gray-400 max-w-xl leading-relaxed fade-in" style="transition-delay:.15s">
@@ -185,9 +209,9 @@
             </p>
             <div class="mt-8 flex flex-wrap gap-4 fade-in" style="transition-delay:.2s">
                 <a href="#projects" class="px-6 py-2.5 bg-green-500 text-gray-900 font-semibold rounded hover:bg-green-400 transition text-sm">View Projects</a>
-                <a href="mailto:bhatta45@students.rowan.edu" class="px-6 py-2.5 border border-gray-600 text-gray-300 rounded hover:border-green-500 hover:text-green-400 transition text-sm">Contact Me</a>
+                <a href="mailto:roshim@roshimbhatta.com" class="px-6 py-2.5 border border-gray-600 text-gray-300 rounded hover:border-green-500 hover:text-green-400 transition text-sm">Contact Me</a>
             </div>
-            <div class="mt-12 flex gap-6 fade-in" style="transition-delay:.25s">
+            <div class="hero-stats mt-12 flex gap-6 fade-in" style="transition-delay:.25s">
                 <div class="text-center">
                     <div class="text-2xl font-bold text-white">3+</div>
                     <div class="text-xs text-gray-500 mono mt-1">cert tracks</div>
@@ -195,7 +219,7 @@
                 <div class="w-px bg-gray-700"></div>
                 <div class="text-center">
                     <div class="text-2xl font-bold text-white">8</div>
-                    <div class="text-xs text-gray-500 mono mt-1">projects shipped/building</div>
+                    <div class="text-xs text-gray-500 mono mt-1">projects shipped</div>
                 </div>
                 <div class="w-px bg-gray-700"></div>
                 <div class="text-center">
@@ -241,7 +265,7 @@
                         <div><span class="text-green-400">→</span> <span class="text-gray-500">location</span> <span class="text-white">Rowan University, NJ</span></div>
                         <div><span class="text-green-400">→</span> <span class="text-gray-500">degree</span>   <span class="text-white">B.S. Cybersecurity</span></div>
                         <div><span class="text-green-400">→</span> <span class="text-gray-500">status</span>   <span class="text-yellow-400">actively building</span></div>
-                        <div><span class="text-green-400">→</span> <span class="text-gray-500">email</span>    <span class="text-blue-400">bhatta45@students.rowan.edu</span></div>
+                        <div><span class="text-green-400">→</span> <span class="text-gray-500">email</span>    <span class="text-blue-400">roshim@roshimbhatta.com</span></div>
                         <div><span class="text-green-400">→</span> <span class="text-gray-500">github</span>   <span class="text-blue-400">github.com/RocmDaGr8</span></div>
                     </div>
                 </div>
@@ -289,14 +313,13 @@
         <div class="fade-in">
             <p class="section-tag">02 / projects</p>
             <h2 class="text-3xl font-bold text-white">Projects</h2>
-            <p class="mt-2 text-gray-400 text-sm">7 Python security tools — summer 2026 sprint · plus other builds</p>
+            <p class="mt-2 text-gray-400 text-sm">8 shipped projects — security tools, threat detectors, and more · all on GitHub</p>
         </div>
 
         <div class="mt-4 flex flex-wrap gap-2 fade-in" style="transition-delay:.05s">
             <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="network">Network</button>
             <button class="filter-btn" data-filter="dfir">DFIR</button>
-            <button class="filter-btn" data-filter="web">Web / AppSec</button>
+            <button class="filter-btn" data-filter="network">Network</button>
             <button class="filter-btn" data-filter="automation">Automation</button>
             <button class="filter-btn" data-filter="other">Other</button>
         </div>
@@ -552,14 +575,6 @@ type();
 // ── Project data ──────────────────────────────────────────────────────
 const projects = [
     {
-        title: 'NetScan',
-        desc: 'Multi-threaded port scanner with service/version detection and exportable reports. Wraps raw sockets + nmap for real-world recon workflows.',
-        tags: ['Python', 'Sockets', 'Nmap'],
-        category: 'network',
-        status: 'building',
-        github: 'https://github.com/RocmDaGr8'
-    },
-    {
         title: 'LogHunter',
         desc: 'Dependency-free Python threat hunter for Linux auth logs and Apache/Nginx access logs. Flags SSH brute-force, privilege escalation, logins after failed attempts, and web recon/exploitation (path traversal, SQLi, scanner user-agents). Severity-ranked reports + JSON export, with a unit test suite.',
         tags: ['Python', 'Regex', 'SIEM', 'DFIR'],
@@ -576,20 +591,28 @@ const projects = [
         github: 'https://github.com/RocmDaGr8/hashcrack'
     },
     {
-        title: 'PacketEye',
-        desc: 'Lightweight packet sniffer using Scapy. Captures, decodes, and filters traffic by protocol/port with color-coded terminal output and PCAP export.',
-        tags: ['Python', 'Scapy', 'Networking'],
-        category: 'network',
-        status: 'planned',
-        github: 'https://github.com/RocmDaGr8'
+        title: 'DNS Exfil Detector',
+        desc: 'Detects DNS exfiltration and tunneling using Scapy. Flags data-encoded subdomains via Shannon entropy, base64/hex pattern detection, beaconing intervals, and abnormal subdomain-length anomalies — the kind of covert channel attackers use to smuggle data out of a network.',
+        tags: ['Python', 'Scapy', 'DFIR'],
+        category: 'dfir',
+        status: 'done',
+        github: 'https://github.com/RocmDaGr8/dns-exfil-detector'
     },
     {
-        title: 'PhishGuard',
-        desc: 'URL + email header analyzer that scores phishing likelihood using heuristics: domain age, homoglyphs, redirect chains, and SPF/DKIM/DMARC checks.',
-        tags: ['Python', 'OSINT', 'Email Security'],
-        category: 'web',
-        status: 'planned',
-        github: 'https://github.com/RocmDaGr8'
+        title: 'Network Traffic Analyzer',
+        desc: 'Python tool that captures and analyzes network packets to detect anomalies and potential security threats. Parses live traffic, surfaces suspicious patterns, and produces indicators to support monitoring and incident response.',
+        tags: ['Python', 'Scapy', 'Networking'],
+        category: 'network',
+        status: 'done',
+        github: 'https://github.com/RocmDaGr8/network-traffic-analyzer'
+    },
+    {
+        title: 'WiFi Scanner',
+        desc: 'WiFi network scanner that reads publicly broadcast beacon frames and displays SSID, BSSID, signal strength, channel, and security type — with color-coded risk assessment that highlights open and weakly-secured networks.',
+        tags: ['Python', 'Scapy', 'Wireless'],
+        category: 'network',
+        status: 'done',
+        github: 'https://github.com/RocmDaGr8/wifi-scanner'
     },
     {
         title: 'FileWatch',
@@ -600,12 +623,12 @@ const projects = [
         github: 'https://github.com/RocmDaGr8/filewatch'
     },
     {
-        title: 'SOC Triage Bot',
-        desc: 'Alert correlation script that ingests CSV/JSON alert feeds, deduplicates, enriches IPs via threat intel APIs, and outputs prioritized incident tickets.',
-        tags: ['Python', 'Threat Intel', 'Automation'],
-        category: 'automation',
-        status: 'planned',
-        github: 'https://github.com/RocmDaGr8'
+        title: 'Secure Data Storage',
+        desc: 'C++ application for encrypting and decrypting sensitive data using AES-256-CBC via OpenSSL. Built around secure key handling, data confidentiality, and cryptographic best practices.',
+        tags: ['C++', 'AES-256', 'OpenSSL'],
+        category: 'other',
+        status: 'done',
+        github: 'https://github.com/RocmDaGr8/secure-data-storage'
     },
     {
         title: 'Chess Engine',
